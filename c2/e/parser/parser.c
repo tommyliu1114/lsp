@@ -34,3 +34,49 @@ struct keywordToken keywordsToken[] = {
     {"super", 5, TOKEN_SUPER},
     {"import", 6, TOKEN_IMPORT},
     {NULL, 0, TOKEN_UNKNOWN}};
+
+static TokenType idOrkeyword(const char *start, uint32_t length)
+{
+    uint32_t idx = 0;
+    while (keywordsToken[idx].keyword != NULL)
+    {
+        if (keywordsToken[idx].length == length && memcmp(keywordsToken[idx].keyword, start, length) == 0)
+        {
+            return keywordsToken[idx].token;
+        }
+        idx++;
+    }
+    return TOKEN_ID;
+}
+
+char lookAheadChar(Parser *parser)
+{
+    return *parser->nextCharPtr;
+}
+
+static void getNextChar(Parser *parser)
+{
+    parser->curChar = *parser->nextCharPtr++;
+}
+
+static bool matchNextChar(Parser *parser, char expectedChar)
+{
+    if (lookAheadChar(parser) == expectedChar)
+    {
+        getNextChar(parser);
+        return true;
+    }
+    return false;
+}
+
+static void skipBlanks(Parser *parser)
+{
+    while (isspace(parser->curChar))
+    {
+        if (parser->curChar == '\n')
+        {
+            parser->curToken.lineNo++;
+        }
+        getNextChar(parser);
+    }
+}
