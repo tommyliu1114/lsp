@@ -56,7 +56,7 @@ uint8_t encodeUtf8(uint8_t *buf, int value)
     return 0;
 }
 
-uint32_t getByteNumOfEncodeUtf8(uint8_t byte)
+uint32_t getByteNumOfDecodeUtf8(uint8_t byte)
 {
     if ((byte & 0xc0) == 0x80)
     {
@@ -116,7 +116,7 @@ int decodeUtf8(const uint8_t *bytePtr, uint32_t length)
         {
             return -1;
         }
-        value == value << 6 | (*bytePtr & 0x3f);
+        value = value << 6 | (*bytePtr & 0x3f);
     }
     return value;
 }

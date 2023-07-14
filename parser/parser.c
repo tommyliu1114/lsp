@@ -73,7 +73,7 @@ static void skipBlanks(Parser *parser)
         getNextChar(parser);
     }
 }
-static void parseId(Parser *parser, TokenType *type)
+static void parseId(Parser *parser, TokenType type)
 {
     while (
         isalnum(parser->curChar) || parser->curChar == '_')
@@ -441,7 +441,7 @@ bool matchToken(Parser *parser, TokenType expected)
     }
     return false;
 }
-bool consumeCurToken(Parser *parser, TokenType expected, const char *errMsg)
+void consumeCurToken(Parser *parser, TokenType expected, const char *errMsg)
 {
     if (parser->curToken.type != expected)
     {

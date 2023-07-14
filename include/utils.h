@@ -52,7 +52,7 @@ typedef struct
         buf->count = buf->capacity = 0;                                          \
     }                                                                            \
                                                                                  \
-    void type##BufferFillWrite(WM *vm,                                           \
+    void type##BufferFillWrite(VM *vm,                                           \
                                type##Buffer *buf, type data, uint32_t fillCount) \
     {                                                                            \
         uint32_t newCounts = buf->count + fillCount;                             \
