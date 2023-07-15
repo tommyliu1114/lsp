@@ -142,6 +142,7 @@ static void parseString(Parser *parser)
         if (parser->curChar == '"')
         {
             parser->curToken.type = TOKEN_STRING;
+            break;
         }
         if (parser->curChar == '%')
         {
